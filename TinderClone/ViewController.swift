@@ -11,37 +11,136 @@ import UIKit
 import Parse
 
 class ViewController: UIViewController {
+    
+    var signUpMode = true
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBOutlet weak var usernameTextField: UITextField!
+    
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBOutlet weak var signUpLogIn: UIButton!
+    
+    @IBOutlet weak var haveAnAccountLabel: UILabel!
+    
+    @IBOutlet weak var changeSignUpModeButton: UIButton!
+    
+    func createAlert(title: String, message: String) {
         
-        let testObject = PFObject(className: "TestObject2")
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        testObject["foo"] = "bar"
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
         
-        testObject.saveInBackground { (success, error) -> Void in
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func signUpOrLogIn(_ sender: Any) {
+        if usernameTextField.text == "" || passwordTextField.text == "" {
             
-            // added test for success 11th July 2016
+            createAlert(title: "Error in form", message: "Please enter a username and password")
             
-            if success {
-                
-                print("Object has been saved.")
-                
-            } else {
+        }
+        
+        if signUpMode {
+            
+            // Sign up mode
+            
+            let user = PFUser()
+            
+            user.username = usernameTextField.text
+            user.password = passwordTextField.text
+            
+            user.signUpInBackground(block: { (success, error) in
                 
                 if error != nil {
                     
-                    print (error)
+                    var displayErrorMessage = "Please try again!"
+                    
+                    if let errorMessage = error?.localizedDescription as? String {
+                        
+                        displayErrorMessage = errorMessage
+                        
+                    }
+                    
+                    self.createAlert(title: "Signup error", message: displayErrorMessage)
                     
                 } else {
                     
-                    print ("Error")
+                    self.createAlert(title: "Successful!", message: "User signed up!")
                 }
                 
-            }
+                
+            })
+            
+            
+        } else {
+            
+            // Log in mode
+            
+            PFUser.logInWithUsername(inBackground: usernameTextField.text!, password: passwordTextField.text!, block: { (user, error) in
+                
+                if error != nil {
+                    
+                    var displayErrorMessage = "Please try again!"
+                    
+                    if let errorMessage = error?.localizedDescription as? String {
+                        
+                        displayErrorMessage = errorMessage
+                        
+                    }
+                    
+                    self.createAlert(title: "Log In error", message: displayErrorMessage)
+                    
+                } else {
+                    
+                    self.createAlert(title: "Successful!", message: "User logged in!")
+                    
+                }
+                
+            })
             
         }
+        
+    }
+    
+    @IBAction func changeSignUpMode(_ sender: Any) {
+        
+        if signUpMode {
+            
+            signUpLogIn.setTitle("Log In", for: [])
+            
+            changeSignUpModeButton.setTitle("Sign Up", for: [])
+            
+            haveAnAccountLabel.text = "Don't have an account?"
+            
+            signUpMode = false
+            
+        } else {
+            
+            signUpLogIn.setTitle("Sign Up", for: [])
+            
+            changeSignUpModeButton.setTitle("Log In", for: [])
+            
+            haveAnAccountLabel.text = "Already have an account?"
+            
+            signUpMode = true
+            
+        }
+        
+        
+    }
+    
+    
+    
+   
+    
+  
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
         
     }
 
