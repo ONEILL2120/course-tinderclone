@@ -52,6 +52,18 @@ class ViewController: UIViewController {
             user.username = usernameTextField.text
             user.password = passwordTextField.text
             
+            /*
+             
+             Use if user write error occurs!
+ 
+            let acl = PFACL()
+            
+            acl.getPublicWriteAccess = true
+            
+            user.acl = acl
+ 
+            */
+            
             user.signUpInBackground(block: { (success, error) in
                 
                 if error != nil {
@@ -68,7 +80,9 @@ class ViewController: UIViewController {
                     
                 } else {
                     
-                    self.createAlert(title: "Successful!", message: "User signed up!")
+                    self.performSegue(withIdentifier: "goToUserInfo", sender: sender)
+
+
                 }
                 
                 
@@ -95,9 +109,10 @@ class ViewController: UIViewController {
                     
                 } else {
                     
-                    self.createAlert(title: "Successful!", message: "User logged in!")
+                    self.performSegue(withIdentifier: "goToUserInfo", sender: sender)
                     
                 }
+                
                 
             })
             
@@ -132,11 +147,15 @@ class ViewController: UIViewController {
         
     }
     
-    
-    
-   
-    
-  
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if PFUser.current() != nil {
+            
+            performSegue(withIdentifier: "goToUserInfo", sender: self)
+            
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
