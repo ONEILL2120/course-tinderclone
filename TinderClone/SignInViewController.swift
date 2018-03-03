@@ -10,7 +10,7 @@
 import UIKit
 import Parse
 
-class ViewController: UIViewController {
+class SignInViewController: UIViewController {
     
     var signUpMode = true
 
@@ -24,23 +24,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var changeSignUpModeButton: UIButton!
     
-    func createAlert(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-    
     @IBAction func signUpOrLogIn(_ sender: Any) {
-        if usernameTextField.text == "" || passwordTextField.text == "" {
+        
+        guard let username = usernameTextField.text, !username.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
             
             createAlert(title: "Error in form", message: "Please enter a username and password")
             
+            return
         }
         
         if signUpMode {
@@ -52,17 +42,12 @@ class ViewController: UIViewController {
             user.username = usernameTextField.text
             user.password = passwordTextField.text
             
-            /*
-             
-             Use if user write error occurs!
- 
             let acl = PFACL()
             
             acl.getPublicWriteAccess = true
+            acl.getPublicReadAccess = true
             
             user.acl = acl
- 
-            */
             
             user.signUpInBackground(block: { (success, error) in
                 
@@ -70,13 +55,14 @@ class ViewController: UIViewController {
                     
                     var displayErrorMessage = "Please try again!"
                     
-                    if let errorMessage = error?.localizedDescription as? String {
+                    if let errorMessage = error?.localizedDescription {
                         
                         displayErrorMessage = errorMessage
                         
                     }
                     
                     self.createAlert(title: "Signup error", message: displayErrorMessage)
+       
                     
                 } else {
                     
@@ -109,7 +95,7 @@ class ViewController: UIViewController {
                     
                 } else {
                     
-                    self.performSegue(withIdentifier: "goToUserInfo", sender: sender)
+                    self.redirectUser()
                     
                 }
                 
@@ -148,13 +134,26 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+    
+        redirectUser()
+        
+    }
+    
+    func redirectUser() {
         
         if PFUser.current() != nil {
             
-            performSegue(withIdentifier: "goToUserInfo", sender: self)
+            if PFUser.current()?["isFemale"] != nil && PFUser.current()?["isInterestedInWomen"] != nil && PFUser.current()?["photo"] != nil {
+                
+                performSegue(withIdentifier: "swipeFromInitialSegue", sender: self)
+                
+            } else {
+                
+                performSegue(withIdentifier: "goToUserInfo", sender: self)
+                
+            }
             
         }
-        
     }
     
     override func viewDidLoad() {
@@ -168,3 +167,20 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+
+extension UIViewController {
+    func createAlert(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+}
+
+
+
