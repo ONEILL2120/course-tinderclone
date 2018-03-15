@@ -17,6 +17,8 @@
 		81BA81791A49E0DB00E65899 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA81781A49E0DB00E65899 /* AudioToolbox.framework */; };
 		81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */; };
 		81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */; };
+		A62032502056B62A009B3831 /* MatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A620324F2056B62A009B3831 /* MatchesViewController.swift */; };
+		A620325220570B92009B3831 /* MatchesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A620325120570B92009B3831 /* MatchesTableViewCell.swift */; };
 		A6EEDE462038D71B004C6123 /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EEDE452038D71B004C6123 /* UserDetailsViewController.swift */; };
 		A6EEDE482038DD73004C6123 /* People-Icon-File.png in Resources */ = {isa = PBXBuildFile; fileRef = A6EEDE472038DD73004C6123 /* People-Icon-File.png */; };
 		A6EEDE4A203B0D94004C6123 /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EEDE49203B0D94004C6123 /* SwipeViewController.swift */; };
@@ -37,6 +39,8 @@
 		81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81BA81801A49E10C00E65899 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		A620324F2056B62A009B3831 /* MatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewController.swift; sourceTree = "<group>"; };
+		A620325120570B92009B3831 /* MatchesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesTableViewCell.swift; sourceTree = "<group>"; };
 		A6EEDE452038D71B004C6123 /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		A6EEDE472038DD73004C6123 /* People-Icon-File.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "People-Icon-File.png"; sourceTree = "<group>"; };
 		A6EEDE49203B0D94004C6123 /* SwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* SignInViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				A620324F2056B62A009B3831 /* MatchesViewController.swift */,
+				A620325120570B92009B3831 /* MatchesTableViewCell.swift */,
 				A6EEDE49203B0D94004C6123 /* SwipeViewController.swift */,
 				A6EEDE472038DD73004C6123 /* People-Icon-File.png */,
 				A6EEDE452038D71B004C6123 /* UserDetailsViewController.swift */,
@@ -196,7 +202,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81BA814D1A49DA1800E65899 /* SignInViewController.swift in Sources */,
+				A620325220570B92009B3831 /* MatchesTableViewCell.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
+				A62032502056B62A009B3831 /* MatchesViewController.swift in Sources */,
 				A6EEDE462038D71B004C6123 /* UserDetailsViewController.swift in Sources */,
 				A6EEDE4A203B0D94004C6123 /* SwipeViewController.swift in Sources */,
 			);
